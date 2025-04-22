@@ -1,0 +1,14 @@
+# Ignore large model and checkpoint files
+fine_tuned_model/
+results/
+*.pt
+*.safetensors
+
+# Ignore environment/config/cache stuff
+__pycache__/
+*.pyc
+*.pyo
+*.log
+.env
+.DS_Store
+.vscode/
