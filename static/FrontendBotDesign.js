@@ -10,6 +10,11 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("chatbot-button").addEventListener("click", () => {
     const wasHidden = windowEl.style.display === "none" || windowEl.style.display === "";
     windowEl.style.display = wasHidden ? "flex" : "none";
+
+    if (wasHidden && body.childElementCount === 0) {
+      addMessage("Charlie", "Hi there! I'm Charlie, The NCI FAQ chatbot. Let me know if you have any questions about NCI! 😊");
+    }
+    
     
     // Add welcome message only if opening the chat for the first time
     if (wasHidden && body.childElementCount === 0) {

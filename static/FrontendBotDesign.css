@@ -22,8 +22,8 @@
   position: fixed;
   bottom: 80px;
   right: 20px;
-  width: 400px;
-  height: 400px;
+  width: 600px;
+  height: 600px;
   background-color: white;
   border: 1px solid #ccc;
   border-radius: 12px;
@@ -98,6 +98,22 @@
   clear: both;
 }
 
+.chat-bubble.bot h3,
+.chat-bubble.bot h4,
+.chat-bubble.bot p,
+.chat-bubble.bot ul,
+.chat-bubble.bot li {
+  margin: 4px 0;
+  padding: 0;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.chat-bubble.bot ul {
+  padding-left: 18px;
+  list-style-type: disc;
+}
+
 .chat-bubble.user {
   background-color: #934ad6;
   color: white;
@@ -114,4 +130,8 @@
   border-bottom-left-radius: 0;
   margin-left: 0;
   margin-right: 20%;
+  max-width: 100%;
+  white-space: normal;
+  word-break: break-word;
+
 }
