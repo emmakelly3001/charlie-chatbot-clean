@@ -1,3 +1,5 @@
+# I used this to remove " – National College of Ireland" from every question
+
 import json
 
 # Paths

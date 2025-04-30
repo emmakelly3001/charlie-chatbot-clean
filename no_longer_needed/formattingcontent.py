@@ -1,4 +1,5 @@
-#this page is being used to format my txt file as needed to fine-tune it
+#This page was used to format my txt file as needed to fine-tune it
+
 import re
 
 # Read the original text file
@@ -13,4 +14,4 @@ formatted_content = re.sub(r'Answer:', '###Answer\n', formatted_content)
 with open("scraped_data.txt", "w", encoding="utf-8") as file:
     file.write(formatted_content)
 
-print("File formatting complete.")
+print("File formatting complete")

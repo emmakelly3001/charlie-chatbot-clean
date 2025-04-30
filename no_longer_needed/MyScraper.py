@@ -1,4 +1,5 @@
-# Full web scraping and processing code for NCI Support Hub
+#This was the code I used to scrape NCI support hub
+
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 import time

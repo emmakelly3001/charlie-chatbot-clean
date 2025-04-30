@@ -1,3 +1,5 @@
+# This was used to download LLaMA onto my local machine from the cloned repository
+
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
 # Path to the cloned model repository

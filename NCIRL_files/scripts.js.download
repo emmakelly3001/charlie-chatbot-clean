@@ -1,0 +1,95 @@
+//show/hide search dropdown and hide on click outside div
+$(function () {
+    $("a.search-toggle, a.mobile-toggle-icon").on("click", function (e) {
+        $("#searchbar, #searchbarAdmin").toggleClass("wide");
+    });
+    $("#mainContent-inner").on("click", function (e) {
+        $("#searchbar, #searchbarAdmin").removeClass("wide");
+        $(".search-toggle-icon-close").toggleClass("search-toggle-icon-close search-toggle-icon");
+    });
+    // $("#searchMobile span").on("click", function (e) {
+    // $(".search-toggle-icon").toggleClass("search-toggle-icon search-toggle-icon-close");
+    // });
+    $(".top-links").on("click", function (e) {
+        $(".dropdown").toggleClass("open");
+    });
+});
+
+$(document).ready(function () {
+    //Hack to open menu based on child class. m.griffin
+    $('#dnnMenu .dropdown-menu.subLevel li.active').parent().parent().addClass('open');
+});
+
+function dropdown() {
+    document.getElementById("mobileDropdownMenuItems").classList.toggle("open");
+}
+
+// activate search dropdown
+$(function () {
+	setTimeout(function() { $('input[name="sb-input"]').focus() }, 3000);
+    var $searchlink = $('.search-toggle span');
+    var $searchbar = $('#searchbar, #searchbarAdmin');
+
+    $('a.search-toggle').on('click', function (e) {
+        e.preventDefault();
+
+        if ($(this).attr('class') == 'search-toggle') {
+            if ($searchbar.is(":visible")) {
+                $searchlink.removeClass('search-toggle-icon').addClass('search-toggle-icon-close');
+            } else {
+                $searchlink.removeClass('search-toggle-icon-close').addClass('search-toggle-icon');
+            }
+        }
+    });
+});
+
+$(document).ready(function () {
+    $("button.navbar-toggle.c-hamburger.c-hamburger--htx").click(function () {
+        $(".menu-text").fadeOut(50, function () {
+            $(".menu-text").text(($(".menu-text").text() == 'Menu') ? 'Close' : 'Menu').fadeIn();
+        })
+    })
+	$("#searchMobile").click(function () {
+		$(".search-text").fadeOut(50, function () {
+            $(".search-text").text(($(".search-text").text() == 'Search') ? 'Close' : 'Search').fadeIn();
+        })
+    })
+});
+
+// $('#bannerCarousel').on('slide.bs.carousel', function (e) {
+    // var idx = $(e.relatedTarget).index();
+    // $('[data-slide-to=' + idx + ']').button('toggle');
+// });
+
+$(document).ready(function () {
+    $('.carousel').carousel();
+});
+
+        //following code will hide all elements with a class of 'no-banner'
+        //if any elements with a class of 'banner' or 'article.details' are found
+    $(document).ready(function() {
+	    if($('#dnn_HeaderPane').hasClass("DNNEmptyPane")){
+            $('.no-banner').css("display", "block");
+        }
+		if($('.article.details').length){
+            $('.no-banner').css("display", "none");
+        }
+		if($('.details_table').length){
+            $('.no-banner').css("display", "none");
+        }
+    });
+	
+	$(document).ready(function () {
+    //add BS css class to default style all tables
+    $(".DNNModuleContent table").addClass('table table-striped');
+	$(".liveaccdefault table").addClass('table table-striped');
+	$(".course_details table").removeClass('table-striped');
+});
+
+
+$(document).ready(function () {
+  $(".accordion_title_wrapper").click(function() { 
+            $(".open").removeClass("open");
+            $(this).addClass("open");
+});
+});

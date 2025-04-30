@@ -1,3 +1,5 @@
+#This was an attempt to finetune my model I did on April 25th
+
 from trl import SFTTrainer
 from transformers import AutoModelForCausalLM, AutoTokenizer, TrainingArguments
 import datasets

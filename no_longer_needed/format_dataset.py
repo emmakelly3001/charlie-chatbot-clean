@@ -1,3 +1,5 @@
+#This was another attempt to fine-tune the dataset, so I could use the LLM
+
 import json
 import re
 
@@ -74,4 +76,4 @@ with open(output_path, "w", encoding="utf-8") as f:
         json.dump(item, f, ensure_ascii=False)
         f.write("\n")
 
-print(f"Final instruction-tuned and fully HTML styled dataset saved to {output_path}")
+print(f"Dataset saved to {output_path}")

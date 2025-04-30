@@ -1,3 +1,5 @@
+# I used this to generate a preview of my dataset, to see how all of my answers would look when they were formatted
+
 import json
 
 # Load your cleaned dataset
@@ -46,4 +48,4 @@ html_content += """
 with open(output_path, 'w', encoding='utf-8') as f:
     f.write(html_content)
 
-print("✅ Preview saved as:", output_path)
+print("Preview saved as:", output_path)

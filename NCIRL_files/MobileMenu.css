@@ -1,0 +1,343 @@
+.navbar {
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
+    margin-bottom: 0
+}
+
+.navbar-default {
+    background-color: transparent;
+    border: none
+}
+
+.navbar-collapse {
+    border: none;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    box-shadow: none
+}
+
+#dnnMenu .topLevel > li > a,
+.dnnMenu .topLevel > li > a {
+    color: #3f3f3f !important
+}
+
+    #dnnMenu .topLevel > li > a:focus,
+    #dnnMenu .topLevel > li > a:hover,
+    .dnnMenu .topLevel > li > a:focus,
+    .dnnMenu .topLevel > li > a:hover {
+        color: #979797
+    }
+
+#dnnMenu .topLevel > li.active > a:focus,
+#dnnMenu .topLevel > li.active > a:hover,
+.dnnMenu .topLevel > li.active > a:focus,
+.dnnMenu .topLevel > li.active > a:hover {
+    color: #3f3f3f
+}
+
+#dnnMenu .topLevel > .open > a,
+#dnnMenu .topLevel > .open > a:hover,
+#dnnMenu .topLevel > .open > a:focus,
+.dnnMenu .topLevel > .open > a,
+.dnnMenu .topLevel > .open > a:hover,
+.dnnMenu .topLevel > .open > a:focus {
+    background: none
+}
+
+/*#dnnMenu .topLevel > .active.open > a,
+#dnnMenu .topLevel > .active.open > a:hover,
+#dnnMenu .topLevel > .active.open > a:focus,
+.dnnMenu .topLevel > .active.open > a,
+.dnnMenu .topLevel > .active.open > a:hover,
+.dnnMenu .topLevel > .active.open > a:focus {
+    background-color: #e7e7e7
+}*/
+
+#dnnMenu .navbar-default .topLevel > li > a,
+.dnnMenu .navbar-default .topLevel > li > a {
+    -webkit-transition: all .3s ease 0s;
+    -moz-transition: all .3s ease 0s;
+    -o-transition: all .3s ease 0s;
+    transition: all .3s ease 0s
+}
+
+#dnnMenu .dropdown-menu,
+.dnnMenu .dropdown-menu {
+    -moz-border-radius: 0;
+    -webkit-border-radius: 0;
+    border-radius: 0;
+    background: #f1f1f1;
+    padding: 0
+}
+
+    #dnnMenu .dropdown-menu::after,
+    .dnnMenu .dropdown-menu::after {
+        bottom: 100%;
+        left: 35%;
+        border: solid transparent;
+        content: " ";
+        height: 0;
+        width: 0;
+        position: absolute;
+        pointer-events: none;
+        border-color: rgba(241, 241, 241, 0);
+        border-bottom-color: #f1f1f1;
+        border-width: 10px;
+        margin-left: -30px
+    }
+
+    #dnnMenu .dropdown-menu li,
+    .dnnMenu .dropdown-menu li {
+        background: none;
+        float: none;
+        clear: both;
+        width: auto;
+        padding: 5px 5px;
+        border-bottom: 1px solid #e1e1e1;
+        -o-transition: all .3s ease 0s;
+        -webkit-transition: all .3s ease 0s;
+        -moz-transition: all .3s ease 0s;
+        transition: all .3s ease 0s
+    }
+
+        #dnnMenu .dropdown-menu li:hover,
+        .dnnMenu .dropdown-menu li:hover {
+            background: #7ca0c0
+        }
+
+        #dnnMenu .dropdown-menu li:last-child,
+        .dnnMenu .dropdown-menu li:last-child {
+            border: none
+        }
+
+        #dnnMenu .dropdown-menu li > a,
+        .dnnMenu .dropdown-menu li > a {
+            background: transparent;
+            padding: 0 15px;
+        }
+
+        #dnnMenu .dropdown-menu li.active > a,
+        #dnnMenu .dropdown-menu li.active a:hover,
+        #dnnMenu .dropdown-menu li.active a:focus,
+        .dnnMenu .dropdown-menu li.active > a,
+        .dnnMenu .dropdown-menu li.active a:hover,
+        .dnnMenu .dropdown-menu li.active a:focus {
+            color: #3f3f3f;
+            font-weight: 600
+        }
+
+    #dnnMenu .dropdown-menu a:hover,
+    .dnnMenu .dropdown-menu a:hover {
+        color: #fff
+    }
+
+#dnnMenu .subLevelRight::after,
+.dnnMenu .subLevelRight::after {
+    border: none
+}
+
+@media only screen and (min-width:768px) and (max-width:992px) {
+    #dnnMenu .nav li,
+    .dnnMenu .nav li {
+        font-size: 15px
+    }
+}
+
+@media only screen and (max-width:992px) {
+    #dnnMenu .dropdown-menu,
+    .dnnMenu .dropdown-menu {
+        padding: 0;
+        width: 100% !important;
+        position: relative;
+        box-shadow: none;
+    }
+
+        #dnnMenu .dropdown-menu::after,
+        .dnnMenu .dropdown-menu::after {
+            border: none;
+            pointer-events: none;
+            border-color: none;
+            border-width: 0
+        }
+
+        #dnnMenu .dropdown-menu.subLevel,
+        .dnnMenu .dropdown-menu.subLevel {
+            padding: 0;
+            position: static;
+            float: none;
+        }
+
+            #dnnMenu .dropdown-menu.subLevel li.active a span,
+            .dnnMenu .dropdown-menu.subLevel li.active a span {
+                color: #fff
+            }
+
+            #dnnMenu .dropdown-menu.subLevel li,
+            .dnnMenu .dropdown-menu.subLevel li {
+                background: #2B343B;
+                border: 1px solid #2B343B;
+                padding: 0
+            }
+
+        #dnnMenu .dropdown-menu.subLevelRight li,
+        .dnnMenu .dropdown-menu.subLevelRight li {
+            background: #2B343B;
+            padding: 0
+        }
+
+    #dnnMenu .topLevel li,
+    .dnnMenu .topLevel li {
+        position: relative;
+        list-style-type: none;
+        float: none;
+        width: 100%;
+        margin-bottom: 0;
+        /*border-top: 1px solid #2B343B;*/
+    }
+
+    #dnnMenu .topLevel li {
+        background: #36424A;
+        border-bottom: 1px solid #FFFFFF;
+    }
+
+    .dnnMenu .topLevel li{
+        background: #fff;
+    }
+
+    #dnnMenu .topLevel > li.active > a {
+        background-color: #36424A;
+    }
+
+        /*#dnnMenu .topLevel li a,
+        .dnnMenu .topLevel li a {
+            display: block;
+            color: #ddd;
+            -webkit-transition: all .2s ease 0s;
+            -moz-transition: all .2s ease 0s;
+            -o-transition: all .2s ease 0s;
+            transition: all .2s ease 0s;
+            padding-top: 5px;
+            padding-bottom: 5px
+        }*/
+
+            #dnnMenu .topLevel > li > a:hover,
+            .dnnMenu .topLevel li a:hover {
+                background: #36424A
+            }
+
+                #dnnMenu .topLevel li a:hover span,
+                .dnnMenu .topLevel li a:hover span {
+                    color: #3f3f3f
+                }
+
+    #dnnMenu .topLevel li a span,
+    .dnnMenu .topLevel li a span {
+        line-height: 52px;
+        margin: 15px 30px 0 15px;
+        font-size: 15px
+    }
+
+            #dnnMenu .topLevel li a span {
+                color: #fff
+            }
+            .dnnMenu .topLevel li a span {
+                color: #36424A
+            }
+
+    #dnnMenu .topLevel .dropdown-menu.subLevel a span {
+        color: #fff
+    }
+        #dnnMenu .topLevel .dropdown-menu.subLevel a span:hover {
+            background-color: #36424A;
+        }
+
+    #dnnMenu .topLevel > li > a {
+        color: #fff;
+        height: 50px;
+    }
+    .dnnMenu .topLevel > li > a {
+        color: #36424A
+    }
+
+    #dnnMenu .topLevel > li > a:hover span {
+        color: #fff;
+        background-color: #36424A;
+    }
+    #dnnMenu .topLevel > li > a span:focus {
+        background-color: #36424A;
+    }
+    .dnnMenu .topLevel > li > a:hover span {
+        color: #36424A
+    }
+
+    /*#dnnMenu .dropdown.open .subLevel > li a:hover span,
+    .dnnMenu .dropdown.open .subLevel > li a:hover span {
+        color: #69849d
+    }*/
+
+    .navbar-nav.sm-collapsible .caret,
+    .navbar-nav.sm-collapsible ul .caret {
+        position: absolute;
+        right: 0;
+        padding: 0;
+        width: 16px;
+        height: 16px;
+        line-height: 60px;
+        text-align: center;
+        border-width: 1px;
+        border-style: solid;
+        top: 0;
+        border: none;
+        display: block;
+        margin: 0;
+        /*border-radius: 0;*/
+        font-size: 1.3em
+    }
+}
+
+@media (max-width: 991px) {
+    .navbar-header {
+        float: none;
+    }
+
+    .navbar-left, .navbar-right {
+        float: none !important;
+    }
+
+    .navbar-toggle {
+        display: block;
+    }
+
+    .navbar-collapse {
+        border-top: 1px solid transparent;
+        box-shadow: inset 0 1px 0 rgba(255,255,255,0.1);
+    }
+
+    .navbar-fixed-top {
+        top: 0;
+        border-width: 0 0 1px;
+    }
+
+    .navbar-collapse.collapse {
+        display: none !important;
+    }
+
+    .navbar-nav {
+        float: none !important;
+        margin-top: 7.5px;
+    }
+
+        .navbar-nav > li {
+            float: none;
+        }
+
+            .navbar-nav > li > a {
+                padding-top: 0;
+                padding-bottom: 10px;
+            }
+
+    .collapse.in {
+        display: block !important;
+    }
+}

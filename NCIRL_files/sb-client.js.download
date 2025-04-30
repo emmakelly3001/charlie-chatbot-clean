@@ -1,0 +1,128 @@
+// This function is obsolete and used for old xsl templates (default-obsolete-v3)
+function sbInitboxResults(clientId) {
+    var resultsRoot = $("#" + clientId),
+        url = window.location.href;
+
+    if (url.match(/&sb-sort=[^&]*/g)) {
+        var sortType = url.match(/&sb-sort=[^&]*/g)[0];
+        resultsRoot.find(".sort-sb-results > .dropdown-toggle.btn:first-child").html("Sort by: " + sortType.substr(sortType.indexOf("=") + 1)).append("<span class='caret' style='margin-left: 5px;'></span>");
+        resultsRoot.find('.sort-sb-results').attr('data-sort', sortType);
+    }
+
+    resultsRoot.find(".sort-sb-results > ul.dropdown-menu > li > a").click(function () {
+        $(this).parents().eq(2).find(".dropdown-toggle.btn:first-child").html("Sort by: " + $(this).text()).append("<span class='caret' style='margin-left: 5px;'></span>");
+        location.href = url.replace(/&sb-sort=[^&]*/, '') + '&sb-sort=' + $(this).attr('value');
+    });
+}
+
+dnnsf.api = dnnsf.api || {};
+dnnsf.api.searchboost = dnnsf.api.searchboost || {};
+dnnsf.api.searchboost = $.extend(dnnsf.api.searchboost, {
+    initInputBox: function (settings) {
+        var $searchDiv = $("#" + settings.ClientId);
+        var selBox = 'input.search-box, input.sb-search-box, input.searchBox, input.sb-searchbox';
+        var $searchInput = $searchDiv.find(selBox);
+        var $searchButton = $searchDiv.find('button.search-btn');
+
+        var inputSearchBox = $("#" + settings.ClientId).find(selBox);
+        $searchInput.keydown(function (event) {
+            if (event.keyCode == 13) {
+                searchRedirect($searchInput.val());
+                return false;
+            }
+        });
+        $searchButton.click(function (event) {
+            searchRedirect($searchInput.val());
+            return false;
+        })
+
+        function htmlEncode(value) {
+            //create a in-memory div, set it's inner text(which jQuery automatically encodes)
+            //then grab the encoded contents back out.  The div never exists on the page.
+            return $('<div/>').text(value).html();
+        }
+
+        function searchRedirect(term) {
+            if (!term)
+                return false;
+            if (settings.IsLiveSearch != true) {
+                var redirectUrl = dnnsf.getUrlParts(settings.FwdToSearchResultsPageApi);
+                redirectUrl.query["terms"] = htmlEncode($(inputSearchBox['1']).val() || $(inputSearchBox['0']).val());
+                if ($("#" + settings.ClientId).find('.portalFilter').length > 0)
+                    redirectUrl.query["portalFilterId"] = $("#" + settings.ClientId).find('.portalFilter').val();
+                redirectUrl.query["behaviorId"] = settings.BehaviorId;
+                redirectUrl.query["facets[0]"] = dnnsf.getUrlParts(window.location.href).query["sb-cat"] || '';
+
+                location.href = redirectUrl.getUrl();
+            }
+        }
+
+        if (settings.SuggestionCount != 0 && !settings.IsLiveSearch == true) {
+            var typingTimer;
+            var doneTypingInterval = 300;
+            $searchInput.typeahead11(
+                {
+                    hint: true,
+                    highlight: true,
+                    minLength: 1
+                }, {
+                    name: 'searchTerms',
+                    source: function (query, sync, async) {
+                        clearTimeout(typingTimer);
+                        if (htmlEncode($(inputSearchBox['1']).val() || $(inputSearchBox['0']).val())) {
+                            typingTimer = setTimeout(doneTyping, doneTypingInterval);
+                        }
+                        function doneTyping() {
+
+                            $.post(settings.SuggestionsApi + '?behaviorId=' + settings.BehaviorId + '&terms=' + htmlEncode($(inputSearchBox['1']).val() || $(inputSearchBox['0']).val()), function (data) {
+                                async(data);
+                            });
+                        }
+                    },
+                    limit: settings.SuggestionCount * 2
+                });
+        }
+        if (settings.IsLiveSearch == true) {
+            var liveTypingTimer;
+            var liveDoneTypingInterval = 300;
+
+            //on keyup, start the countdown
+            $searchInput.keyup(function () {
+                clearTimeout(liveTypingTimer);
+                if ($searchInput.val()) {
+                    liveTypingTimer = setTimeout(liveDoneTyping, liveDoneTypingInterval);
+                }
+            });
+
+            //user is "finished typing," do something
+            function liveDoneTyping() {
+                var liveRequest = dnnsf.getUrlParts(settings.RenderResultsApi);
+                liveRequest.query["behaviorId"] = settings.BehaviorId;
+                var requestData = {
+                    SearchTerms: htmlEncode(inputSearchBox.val()),
+                    FilerPortalId: $("#" + settings.ClientId).find('.portalFilter').val(),
+                    Sorting: $("#" + settings.ClientId).find('.sb-dspl-sort-btn').attr('data-sort'),
+                    PageSize: dnnsf.getUrlParts(window.location.href).query["sb-pagesize"] || '',
+                    SortingFieldName: $("#" + settings.ClientId).find('.sb-dspl-sort-btn').attr('data-sort')
+                }
+                if (dnnsf.getUrlParts(window.location.href).query["sb-cat"] != '') {
+                    requestData.Categories = [{ path: dnnsf.getUrlParts(window.location.href).query["sb-cat"] } || ''];
+                }
+
+                $.post(liveRequest.getUrl(),
+                    requestData,
+                    function (reponse) {
+                        $searchDiv.find('.sb-live-result').replaceWith(reponse);
+                        var windowHref = dnnsf.getUrlParts(window.location.href);
+                        windowHref.query[settings.SearchParam] = htmlEncode(inputSearchBox.val());
+                        windowHref.query["sb-cat"] = dnnsf.getUrlParts(window.location.href).query["sb-cat"] || '';
+                        windowHref.query["sb-sort"] = $("#" + settings.ClientId).find('.sb-dspl-sort-btn').attr('data-sort');
+                        windowHref.query["sb-pagesize"] = dnnsf.getUrlParts(window.location.href).query["sb-pagesize"] || '';
+
+                        history.replaceState(null, null, windowHref.getUrl());
+                    });
+            }
+        }
+
+    }
+})

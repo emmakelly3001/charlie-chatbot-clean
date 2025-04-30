@@ -2802,30 +2802,35 @@
   <script type="text/javascript" src="./National College of Ireland_files/script.js.download"></script>
   
 
-  <!--THE FOLLOWING CODE IS THE CHATBOT POPUP. THIS IS FOR THE MOSTPART THE ONLY MODIFIED CODE-->
-<!-- FontAwesome Icons -->
+<!-- === Charlie Chatbot Pop-up === -->
+
+<!-- FontAwesome for Chat Icon -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
-<!-- Chatbot Stylesheet -->
+<!-- Custom Chatbot Styles -->
 <link rel="stylesheet" href="{{ url_for('static', filename='FrontendBotDesign.css') }}">
 
-<Chatbot Button>
-<button id="chatbot-button">
+<!-- Chatbot Button -->
+<button id="chatbot-button" aria-label="Open Chatbot">
   <i class="fa-solid fa-comment"></i>
 </button>
 
-<Chatbot Window>
+<!-- Chatbot Window -->
 <div id="chatbot-window">
-  <div id="chatbot-header">Charlie - The NCI Chatbot</div>
-  <i id="chatbot-close" class="fa-solid fa-x"></i>
+  <div id="chatbot-header">
+    Charlie - The NCI Chatbot
+    <i id="chatbot-close" class="fa-solid fa-x" aria-label="Close Chatbot"></i>
+  </div>
+
   <div id="chatbot-body"></div>
 
   <div id="chatbot-input">
-    <input type="text" id="user-input" placeholder="Type your message..." />
-    <button id="send-button" onclick="sendMessage()">Send</button>
+    <input type="text" id="user-input" placeholder="Type your message..." aria-label="User Message Input" />
+    <button id="send-button" onclick="sendMessage()" aria-label="Send Message">Send</button>
   </div>
 </div>
 
-<Chatbot Script>
+<!-- Chatbot Script -->
 <script src="{{ url_for('static', filename='FrontendBotDesign.js') }}" defer></script>
+
 </body></html>

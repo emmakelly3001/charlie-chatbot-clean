@@ -1,3 +1,5 @@
+#I used this code to try and instruction-tune my LLaMA model
+
 import json
 
 with open("formatted_data.jsonl", "r", encoding="utf-8") as infile, open("instruction_tuned_data.jsonl", "w", encoding="utf-8") as outfile:

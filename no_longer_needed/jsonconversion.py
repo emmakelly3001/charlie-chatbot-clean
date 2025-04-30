@@ -1,4 +1,6 @@
-#this code was used to convert my data into json format
+#This code was used to convert my data from .txt into .jsonl format
+
+
 import json
 
 # Convert your text file into JSON format

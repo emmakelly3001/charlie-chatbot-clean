@@ -1,0 +1,32 @@
+﻿.bg-primary {
+    background: #784794;
+}
+    .bg-primary h3,
+    .bg-primary p,
+    .bg-primary a {
+        color: #fff !important;
+		margin-top: 0;
+    }
+
+    .bg-primary a {
+       text-decoration:underline !important;
+    }
+	
+.panel {
+    position: relative;
+    background: #784794;
+    margin-bottom: 0;
+}
+    .panel .inner {
+        padding: 30px 0;
+    }
+
+.inner {
+    position: relative;
+    overflow: hidden;
+    margin-right: auto;
+    margin-left: auto;
+}
+p:last-child {
+    margin-bottom: 0;
+}
