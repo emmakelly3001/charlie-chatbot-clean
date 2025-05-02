@@ -17,9 +17,12 @@ from flask_limiter.util import get_remote_address
 # Suppress unnecessary warnings from transformers
 logging.getLogger("transformers.generation.utils").setLevel(logging.ERROR)
 
+#logging = true
+logging.basicConfig(level=logging.INFO)
+
 # === Load Fine-tuned Charlie Model ===
 model_path = "./fine_tuned_model"  # Path to fine-tuned model
-device = "cuda" if torch.cuda.is_available() else "cpu"  # Use GPU if available
+device = "cuda" if torch.cuda.is_available() else "cpu"  # Use GPU if available, otherwise use CPU
 tokenizer = AutoTokenizer.from_pretrained(model_path)
 model = AutoModelForCausalLM.from_pretrained(model_path).to(device)
 
@@ -105,16 +108,22 @@ def wrap_with_friendly_tone(answer):
     opening = random.choice(openings)
     closing = random.choice(closings)
 
-    clean_answer = bleach.clean(answer, tags=['b', 'i', 'u', 'em', 'strong', 'p', 'ul', 'li', 'br'], strip=True)
+    clean_answer = bleach.clean(
+        answer,
+        tags=['b', 'i', 'u', 'em', 'strong', 'p', 'ul', 'li', 'br', 'a'],
+        attributes={'a': ['href', 'target', 'title']},
+        strip=True
+    )
 
     return f"<p>{opening}</p>{clean_answer.strip()}<p>{closing}</p>"
+    return clean_answer
 
 def get_small_talk_responses():
     """
     Return predefined responses for small talk interactions.
     """
     return {
-        "hi": "Hey there!",
+        "hi": "Hey there Emma!",
         "hello": "Hello! How can I help you today?",
         "how are you": "I'm doing great, thanks! How can I help you today?",
         "how are you doing": "I'm doing well, thank you! Let me know if there's anything I can help with.",
@@ -143,9 +152,7 @@ def serve_ncirlfiles(filename):
 
 @app.route('/chat', methods=['POST'])
 def chat():
-    """
-    Handle user chat messages and return a suitable reply.
-    """
+    print("in here")
     data = request.json
     user_input = data.get('message', '').strip()
 
@@ -164,12 +171,12 @@ def chat():
         matched_answer = qa_dict[matched_question]
         output = matched_answer.strip()
         reply = wrap_with_friendly_tone(output)
-
-        print(f"\n[Original]: {matched_answer}\n[Final Reply]: {reply}\n")
     else:
+        matched_answer = "No match found."
         reply = random_fallback()
 
     return jsonify({'reply': reply})
+
 
 @app.route('/')
 def serve_homepage():
@@ -187,5 +194,5 @@ def static_from_saved_site(filename):
 
 # === Run Flask App ===
 if __name__ == '__main__':
-    print("Charlie is running at http://localhost:5000")
-    app.run(host="0.0.0.0", port=5000, debug=False)  # IMPORTANT: debug=False for production
+    print("Charlie is emma running at http://localhost:5000")
+    app.run(host="0.0.0.0", port=5000, debug=True)  # IMPORTANT: debug=False for production
