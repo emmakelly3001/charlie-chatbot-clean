@@ -1,0 +1,677 @@
+(function() {
+  "use strict";
+
+  ready(function() {
+    
+// Show div html based on role
+if (HelpCenter.user.role=="anonymous"){
+ $("div.anonymous").show();
+}
+
+if (HelpCenter.user.role=="end_user"){
+ $("div.end_user").show();
+}
+
+if (HelpCenter.user.role=="agent"){
+ $("div.agent").show();
+}
+
+if (HelpCenter.user.role=="manager"){
+ $("div.manager").show();
+}
+    
+
+
+
+    
+// Hide the forms from Anonymous Users    
+    
+$(document).ready(function () {
+
+if (HelpCenter.user.role=="anonymous") {
+// Hide the graduation form from Homepage    
+    
+if (window.location.href.indexOf("?ticket_form_id") > -1) {
+      console.log("yes!");
+    } else {
+      var _x = $(".list-group > a[href*='7446275690524']").remove(); 
+    }
+}
+
+  
+
+  
+  
+
+//Code for some specific ticket forms -- Start
+
+var tagsToRemove = ['7446275690524'];  //special form ID
+
+function removeTagsWeDontWant() {
+$('.nesty-panel').on('DOMNodeInserted', function(e){
+for(var i in tagsToRemove) {
+$('li#' + tagsToRemove[i]).remove();
+}
+});
+};
+
+if (HelpCenter.user.role=="anonymous") {
+removeTagsWeDontWant();
+}
+// End
+
+});     
+    
+// Hide the forms from users with Orgnaisation name "Students"        
+    
+function removeForm() {
+       for (var c in HelpCenter.user.organizations) {
+         if(HelpCenter.user.organizations[c].name == "Students") {
+           $(".list-group a[href*='7446275690524']").hide();
+         }
+      
+         else {
+            $(".list-group a[href*='7446275690524']").show();
+         }
+     }
+  };
+  removeForm();   
+    
+    
+    
+    
+   
+ 
+    
+ // Hide the graduation form from Nesty Panel    
+   
+     for (var c in HelpCenter.user.organizations) {
+ if(HelpCenter.user.organizations[c].name == "Students") {
+var tagsToRemove = ['7446275690524'];  //special form ID
+
+function removeTagsWeDontWant() {
+$('.nesty-panel').on('DOMNodeInserted', function(e){
+
+for(var i in tagsToRemove) {
+$('li#' + tagsToRemove[i]).remove();
+}
+});
+};
+removeTagsWeDontWant(); 
+ } 
+}  
+    
+// Hide dropdown options NOT WORKING
+
+// For this funtion to work i needed to call it in my script.js file first.
+$(document).ready(function() {
+  var hideoption = document.getElementById('exam_invigilator_application_form');
+  if (HelpCenter.user.role == "anonymous" || HelpCenter.user.organizations[0].name == "Staff" || HelpCenter.user.organizations[0].name == "Students") {
+    if (hideoption !== null) {
+      hideoption.style.display = 'none';
+    }
+    var optionsToRemove = ['exam_invigilator_application_form'];
+    hideDropdownOptions(optionsToRemove);
+  }
+});
+    
+    
+  // For this funtion to work i needed to call it in my script.js file first.
+$(document).ready(function() {
+  var hideoption = document.getElementById('re-schedule_form_soc_sem_1_2425');
+  if (HelpCenter.user.role == "anonymous" || HelpCenter.user.organizations[0].name == "Students") {
+    if (hideoption !== null) {
+      hideoption.style.display = 'none';
+    }
+    var optionsToRemove = ['re-schedule_form_soc_sem_1_2425'];
+    hideDropdownOptions(optionsToRemove);
+  }
+});
+    
+    
+    
+    
+// This will hide the option with the id demo_field if the user is anonymous.
+function hideDropdownOptions(tagsToRemove) {
+  if (tagsToRemove) {
+    Array.prototype.forEach.call(document.querySelectorAll(".nesty-panel"), function(tagsElement) {
+      if (tagsElement !== null) {
+        var fieldDisableTagsObserver = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            if (mutation.type == 'childList') {
+              if (mutation.addedNodes.length >= 1) {
+                for (var i = 0; i < mutation.addedNodes.length; i++) {
+                  for (var j in tagsToRemove) {
+                    var tagElementToRemove = document.querySelector("li#" + tagsToRemove[j]);
+                    if (tagElementToRemove !== null) {
+                      tagElementToRemove.remove();
+                    }
+                  }          
+                }    
+              }
+            }
+          });
+        });
+        fieldDisableTagsObserver.observe(tagsElement, {childList: true});
+      }
+    });
+  } 
+}    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+// Please confirm you have read the "Change Request Guidelines for use".     
+    
+
+    
+$('.form-field.request_custom_fields_6659637701916').prepend('<p id="request_description_hint"><p><strong>Change Request Guidelines for use</strong></p></br><p>o This form should be completed for all systems and service changes deemed to be of type significant or emergency.  </p><p>o Note that with <strong>emergency changes</strong>, it is acceptable, based on circumstances, to complete the change request form retrospectively. This should be noted in the change description. </p><p>o Standard changes regarding systems and infrastructure managed by any third-party providers should be captured through the ticketing system – completion of this form is not required in this instance, but reference to any third party documentation or tickets should be recorded in corresponding tickets. </p><p>o Standard changes regarding systems and infrastructure managed by any third-party providers should be captured through the ticketing system – completion of this form is not required in this instance, but reference to any third party documentation or tickets should be recorded in corresponding tickets. </p><p>Change request should be submitted for approval by Change Management Team at least four weeks ahead of planned change.</p></p></br></br><center><p><strong>Change Request Form</strong></p></center>')
+    
+// Terms and Conditions message.     
+    
+$('.form-field.request_custom_fields_5317625620380').append('<p id="request_description_hint"><br/><p><strong>Terms and Conditions</strong></p><p><i>Please note the following:</i></p><p>&middot; Students should make themselves aware of the cost with running the requested AWS services by using the <a href="https://calculator.aws/#/" target="_blank" rel="noopener noreferrer">AWS calculator</a>. AWS also provides pricing lists for specific services (e.g., <a href="https://aws.amazon.com/ec2/pricing/" target="_blank" rel="noopener noreferrer">EC2 pricing</a>.</p><p>&middot; It is important to be cost-aware and efficient when working with paid public cloud services.</p><p>&middot; Students must take measures to reduce the cost. For example, some measures for AI/Deep Learning projects may include but not limited to:</p><p>o Shut down AWS resources when not in use.</p><p>o If possible, test the code on your local PC before deploying it to the cloud.</p><p>o Test the code with a data sample on a smaller cloud instance.</p><p>o Run the code on large / expensive instances after fully tested and only if really needed (e.g., due to very large datasets, time constraints, etc.).</p><p>&middot; Students must regularly backup their work and be able to re-launch cloud resources and re-deploy their code fast. Note that as part of the final RP/Internship submission, students are required to upload to Moodle their project ICT artefact and Configuration Manual for marking, persistence and reproducibility.</p><p>&middot; IT may shut down AWS resources regularly. If students need to run specific resources over a longer duration they must be properly tagged (e.g., with &ldquo;long running&rdquo;).</p></p>') 
+    
+$('.form-field.request_custom_fields_6100324652060').append('<p id="follow_up_hint"> Any personal data provided to the National College of Ireland (“NCI”), through or in connection with this application form, will be processed by NCI as a data controller for the purposes of assessing your application and, if the application is successful, for related student administration. For further information on how NCI uses your personal data and in relation your data protection rights and how to contact the NCI data protection officer, please refer to the NCI Data Protection Statement, which is available <a href="//www.ncirl.ie/Legal/Privacy" target="_blank" rel="noopener noreferrer">here</a>.') 
+    
+
+    
+    
+      
+$('.form-field.request_custom_fields_14071091615004').prepend('<p id="request_description_hint"><center><strong>Tree-Nation Request Form</strong></center></br><p>To gift a tree to a guest speaker or guest judge, please complete the Tree-Nation Request Form below (Staff Only). Once you have inputted all relevant information, click on the Submit button.</p></br><p>Before starting the form below, please have ready the Tree Project (Forest) URL and Tree Name you would like to gift. This can be obtained from the Support Hub Article “How do I select a Project and a Tree from Tree-Nation? (Staff Only).</p></br><p><strong>Note: </strong>Please note that once your request has been received and is ready to be processed with Tree-Nation, a member of the Marketing Department will contact you to process the payment. Kindly ensure that you have your credit card ready to complete the payment process.</p></p></br>')         
+    
+    
+$('.form-field.request_custom_fields_8679670220444').prepend('<p id="request_description_hint"><center><strong>Incident Report Form</strong></center></br><p>To submit an Incident Report Form please fill in the required fields below, once you have completed the form click the button titled <strong>Submit</strong> from the bottom left.</p></br><p><strong>Please Note</strong></p><p>This is not a form for accidents. If you wish to report an accident on campus you should contact reception or security.</p></p></br>')  
+    
+    
+ $('.form-field.request_custom_fields_10323955830428').prepend('<p id="request_description_hint"><center><strong>Exam Invigilator Application Form</strong></center></br><p>To submit an Exam Invigilator Application Form please fill in the required fields below, once you have completed the form click the button titled <strong>Submit</strong> from the bottom left.</p></br><p><strong>PERSONAL INFORMATION</strong></p></br>')     
+    
+ $('.form-field.request_custom_fields_10324880266140').prepend('<p id="request_description_hint"><strong>INVIGILATION HISTORY</strong></p></br>')
+    
+ $('.form-field.request_custom_fields_10325045362588').prepend('<p id="request_description_hint"><strong>MID SEMESTER CONTINUOUS ASSESSMENTS</strong></p></br>') 
+    
+ $('.form-field.request_custom_fields_10325086734492').prepend('<p id="request_description_hint"><strong>FUTURE EXAM SESSIONS</strong></p></br>')
+
+     $('.form-field.request_custom_fields_10325086734492').append('<p id="request_description_hint"></br><strong>ATTACHMENTS</strong></p></br><p>We require certain attachments to be uploaded these include <strong>Passport Style Photo</strong> and an <strong>Up to date CV</strong>.</br></br>Successful applicants will be asked to attend an invigilator training session with the exams office, Please note the above information is required as successful applicants details will be stored with HR.</p>')
+    
+ $('.form-field.request_custom_fields_10339478599964').prepend('<p id="request_description_hint"><center><strong>Past Transcript Request Form</strong></center></br><p>To submit an Past Transcript Request Form please fill in the required fields below, once you have completed the form click the button titled <strong>Submit</strong> from the bottom left.<strong> Please Note:</strong> There is a <strong>Fee</strong> of €10.00 per copy per year of study.</strong><strong>Transcript requests</strong> can take up to 5 business days for processing.</p></br><p><strong>STUDENT INFORMATION</strong></p></br>')
+    
+$('.form-field.request_custom_fields_13256011028252').prepend('<p id="request_description_hint"><center><strong>Dimploma Supplement Reissue Request Form</strong></center></br><p>To submit an Dimploma Supplement Reissue Request Form please fill in the required fields below, once you have completed the form click the button titled <strong>Submit</strong> from the bottom left.<strong></br></br>Note:</strong> There is a <strong>Fee</strong> of €50.00 per copy of Diploma Supplement.</strong><strong> Reprint requests</strong> can take up to 10-15 business days for processing</p></br><p><strong>STUDENT INFORMATION</strong></p></br>')
+
+$('.form-field.request_custom_fields_13256298590236').prepend('<p id="request_description_hint"><center><strong>Exit Award Application Form</strong></center></br><p>To submit an Exit Award Application Form please fill in the required fields below, once you have completed the form click the button titled <strong>Submit</strong> from the bottom left.</br></br><strong>Note: </strong>Exit Award Applications will be processed 3 times per academic year. Students must submit their application form within 1 week of the results release date. For more information on release dates, please see <a href="https://ncisupporthub.ncirl.ie/hc/en-ie/articles/7811535995804-When-will-my-Exit-Award-application-be-processed" target="_blank">this article</a> on the NCI Support Hub.</p></br><p><strong>International Students </strong>who wish to move to the 1G (Stay back work visa): Before submitting your request to exit, you must check the Post Graduate Award for your programme is eligible for the 1G visa by reading <a href="https://ncisupporthub.ncirl.ie/hc/en-ie/articles/5147166469148-How-do-I-exit-with-a-postgraduate-award" target="_blank">this article</a> on the NCI Support Hub.</p></br>')
+
+    
+ $('.form-field.request_custom_fields_10339523842588').prepend('<p id="request_description_hint"><strong>PROGRAMME INFORMATION</strong></p></br>')
+  
+  $('.form-field.request_custom_fields_14564495355420').prepend('<p id="request_description_hint"><center><h2>Section 1: Programme/Modules Details</h2></center><p>To submit an Re-schedule Form SOC 24/25 please fill in the required fields below, once you have completed the form click the button titled <strong>Submit</strong> from the bottom left.</p></br>')
+  
+$('.form-field.request_custom_fields_14564495355420').prepend('<p id="request_description_hint"><center><h2>Re-schedule Form SOC 24/25</h2></center><p>To submit an Re-schedule Form SOC 24/25 please fill in the required fields below, once you have completed the form click the button titled <strong>Submit</strong> from the bottom left.</br></br>Only use this form if you are not available for teaching at the times outlined in the <a href="https://mytimetable.ncirl.ie" target="_blank">MyTimetable Website</a>. Details on scheduling can be found in <strong>Section 2</strong> of this form. <strong>Submission of this form does not carry any guarantees that changes can take place.</strong></p></br>')
+    
+$('.form-field.request_custom_fields_14569087212956').prepend('<p id="request_description_hint"><center><h2>Section 2: Programme/Modules Details</h2></center><h3>How programmes are scheduled</h3><h4><u>Full time Programmes</u></h4><ul><li>Full time programmes can be scheduled at any time with the hours outlined below<ul><li>Mondays, Tuesdays, Thursdays and Fridays between 9am-6pm</li><li>and Wednesdays between 9am-1pm</li></ul></li></ul><h4><u>All Programmes</u></h4><ul><li>Part time programmes are delivered on set days of the week, between 6pm-10pm, these days and times are not flexible - Academic Operations would advise on which days of the week the module(s) offered to you may take place</li><li>Typically a part time programme is scheduled 2 or 3 evenings per week and depending on the programme, it will also be scheduled on Saturdays</li><li>Saturday classes may take place every Saturday OR on a number of Saturdays, depending on the programme, between 9am-6pm</li><li>In most cases, only lab/tutorial/practical are scheduled on Saturdays, however this may change depending on academic requirements</li></ul><h4><u>Block Delivery Programmes</u></h4><ul><li>These programmes are delivered in blocks and would normally be scheduled over a period of 2-3 consecutive weeks - Academic Operations would advise whether a module offered to you is block delivered</li><li>For example:<ul><li>Monday and Wednesday (full day) and Friday (half day)</li><li>Tuesday and Thursday (full day) and Friday (half day)</li></ul></li></ul><h4>Please note</h4><ul><li>Timetable Scheduling must prioritise student and academic requirements</li><li>The module(s) which you are teaching will be scheduled within the days outlined depending on which programme you are teaching (full time, part time, and so on)</li><li>Provisional timetables will be published on the myTimetable app, you will be advised once they go live</li></ul><br></p>');
+
+
+
+
+
+
+
+    
+    // Hide the Subject and Description boxes when is request type: MSc Research Project / Internship Public Cloud Requirements Form is selected. 
+    
+$("#request_custom_fields_5290902356252").on('change', function(){ 
+    hideSubject();
+    hideDescription();
+});
+    
+    
+function hideSubject() {
+  var selected = $('#request_custom_fields_5290902356252').val();
+    
+  if (selected == "msc_research_project_internship") {
+   $('.form-field.request_subject').hide();   
+    var descText = 'MSc Research Project / Internship Public Cloud Requirements Form';
+    $('#request_subject').val(descText);
+    }
+  
+  
+  
+  else if (selected == "jml_form_it") {
+   $('.form-field.request_subject').hide();   
+    var descText = 'A new Joiners Movers Leavers Form has been submitted';
+    $('#request_subject').val(descText);
+    }
+  
+    else if (selected == "change_control_request") {
+   $('.form-field.request_subject').hide();   
+    var descText = 'Change Control Request';
+    $('#request_subject').val(descText);
+    }
+  
+  else {
+     $('.form-field.request_subject').show();
+     $('#request_subject').val('');  
+  }
+}
+        
+    
+
+function hideDescription() {
+  var selected = $('#request_custom_fields_5290902356252').val();
+    
+  if (selected == "msc_research_project_internship") {
+    $('.form-field.request_description').hide();    
+    var descText = 'MSc Research Project / Internship Public Cloud Requirements Form has been submitted to the NCI Support Hub';
+    $('#request_description').val(descText);
+    }
+  
+  
+  else if (selected == "jml_form_it") {
+    $('.form-field.request_description').hide();    
+    var descText = 'You have now submitted a Joiners Movers Leavers Form to the NCI Support Hub. The IT Helpdesk will now contact the Line Manager of the new Employee to gather information on IT Setup and Requirments.';
+    $('#request_description').val(descText);
+    }
+  
+    else if (selected == "change_control_request") {
+    $('.form-field.request_description').hide();    
+    var descText = 'A change request has been submitted, you will shortly recieve a confirmation reply with the details of the requested change request';      
+    $('#request_description').val(descText);
+    }
+  
+  else {
+     $('.form-field.request_description').show();
+     $('#request_description').val('');  
+  }
+}
+  
+    
+// Calling the funtion
+$("#request_custom_fields_6090963939740").on('change', function(){ 
+    hideSubject2();
+    hideDescription2();
+});      
+    
+    
+// Hiding subject for form id 9740
+function hideSubject2() {
+  var selected = $('#request_custom_fields_6090963939740').val();
+    
+  if (selected == "incident_report_form") {
+   $('.form-field.request_subject').hide();   
+    var descText = 'Incident Report Form';
+    $('#request_subject').val(descText);
+    }
+  
+  else {
+     $('.form-field.request_subject').show();
+     $('#request_subject').val('');  
+  }
+}   
+    
+    
+    
+// Hiding description for form id 9740
+function hideDescription2() {
+  var selected = $('#request_custom_fields_6090963939740').val();
+    
+  if (selected == "incident_report_form") {
+    $('.form-field.request_description').hide();    
+    var descText = 'An Incident Report Form has been submitted to the NCI Support Hub';
+    $('#request_description').val(descText);
+    }
+  
+  
+  else {
+     $('.form-field.request_description').show();
+     $('#request_description').val('');  
+  }
+}   
+    
+
+ // Calling the function for form id 10325192178844 (subject3)
+$("#request_custom_fields_10325192178844").on('change', function(){ 
+    hideSubject3();
+    hideDescription3();
+}); 
+
+function hideSubject3() {
+  var selected = $('#request_custom_fields_10325192178844').val();
+  var descText = '';
+
+  if (selected == "exam_invigilator_application_form") {
+    descText = 'Exam Invigilator Application Form';
+  } else if (selected == "past_transcript_request_form") {
+    descText = 'Past Transcript Request Form';
+  } else if (selected == "diploma_supplement_reissue_request_form") {
+    descText = 'Diploma Supplement Reissue Request Form';
+  } else if (selected == "exit_award_application_form") {
+    descText = 'Exit Award Application Form';
+  }
+
+  if (descText) {
+    $('.form-field.request_subject').hide();
+    $('#request_subject').val(descText);
+  } else {
+    $('.form-field.request_subject').show();
+    $('#request_subject').val('');
+  }
+}
+
+
+// Hiding description for form id 10325192178844 (subject3)
+function hideDescription3() {
+  var selected = $('#request_custom_fields_10325192178844').val(); 
+    
+  if (selected == "exam_invigilator_application_form") {
+    $('.form-field.request_description').hide();    
+    var descText = 'Thank you, Your Exam Invigilator Application Form has now been submitted, and a ticket has been created on your behalf. It is now with the Exams Team. Please keep an eye on your requests section on the NCI Support Hub or email for further ticket updates.';
+    $('#request_description').val(descText);
+  } 
+  
+   else if (selected == "past_transcript_request_form") {
+    $('.form-field.request_description').hide();    
+    var descText = 'Thank you, Your Transcript Request Form has now been submitted, and a ticket has been created on your behalf. It is now with the Exams Team. Please keep an eye on your requests section on the NCI Support Hub or email for further ticket updates.';
+    $('#request_description').val(descText);
+    }
+  
+   else if (selected == "diploma_supplement_reissue_request_form") {
+    $('.form-field.request_description').hide();    
+    var descText = 'Thank you, Your Diploma Supplement Reissue Request Form has now been submitted, and a ticket has been created on your behalf. It is now with the Exams Team. Please keep an eye on your requests section on the NCI Support Hub or email for further ticket updates.';
+    $('#request_description').val(descText);
+    }
+  
+   else if (selected == "exit_award_application_form") {
+    $('.form-field.request_description').hide();    
+    var descText = 'Thank you, Your Exit Award Application Form has now been submitted, and a ticket has been created on your behalf. It is now with the Exams Team. Please keep an eye on your requests section on the NCI Support Hub or email for further ticket updates.';
+    $('#request_description').val(descText);
+    }
+  
+  else {
+     $('.form-field.request_description').show();
+     $('#request_description').val('');  
+  }
+}
+    
+    
+    
+    
+    
+    
+    // Calling Tiemtabling form 14561998573980 (subject4)
+
+  $("#request_custom_fields_11292491676828").on('change', function(){ 
+    hideSubject4();
+    hideDescription4();
+});
+    
+    
+function hideSubject4() {
+  var selected = $('#request_custom_fields_11292491676828').val();
+    
+  if (selected == "re-schedule_form_soc_sem_1_2425") {
+   $('.form-field.request_subject').hide();   
+    var descText = 'Re-schedule Form SOC 24/25';
+    $('#request_subject').val(descText);
+    }
+  
+  else {
+     $('.form-field.request_subject').show();
+     $('#request_subject').val('');  
+  }
+}
+        
+    
+
+function hideDescription4() {
+  var selected = $('#request_custom_fields_11292491676828').val();
+    
+  if (selected == "re-schedule_form_soc_sem_1_2425") {
+    $('.form-field.request_description').hide();    
+    var descText = 'Re-schedule Form SOC 24/25 has been submitted to the NCI Support Hub';
+    $('#request_description').val(descText);
+    }
+  
+  else {
+     $('.form-field.request_description').show();
+     $('#request_description').val('');  
+  }
+}  
+    
+    
+    
+    
+    // Open social sharing links in a new window
+    each('.share a', function(a) {
+      a.addEventListener('click', function(e) {
+        e.preventDefault();
+        window.open(this.href, '', 'height = 500, width = 500');
+      });
+    });
+
+    // Render inline micro-templates
+    each('[data-element="template"]', function(el) {
+      if (el.hasAttribute('data-template')) {
+        Util.renderTemplate(el, el.getAttribute('data-template'));
+      }
+    });
+
+    // Add focus classname to search field
+    each('.form-field [type="search"]', function(el) {
+      el.addEventListener('focus', function() { this.parentNode.classList.add(Util.classNames.FOCUS); });
+      el.addEventListener('focusout', function() { this.parentNode.classList.remove(Util.classNames.FOCUS); });
+    });
+
+    // Replace images with inline SVG
+    Array.prototype.forEach.call(document.querySelectorAll('[data-inline-svg]'), Util.replaceWithSVG);
+
+    // Smooth scroll
+    function maybeScroll() {
+      var smoothScroll = Util.getURLParameter('smooth-scroll', window.location);
+      if (smoothScroll === 'true' && window.location.hash) {
+        var offset = Util.getURLParameter('offset', window.location);
+        var target = document.getElementById(window.location.hash.substring(1).split("?")[0]);
+        Util.scrollIntoView(target, offset);
+      }
+    }
+
+    window.addEventListener('hashchange', maybeScroll, false);
+    maybeScroll();
+
+    /**
+     * Collapsible nav plugin.
+     * @param el
+     * @constructor
+     */
+    function CollapsibleNav(el) {
+      this.el = el;
+      el.addEventListener('click', this.onClick.bind(this));
+    }
+
+    CollapsibleNav.prototype = {
+
+      onClick: function(e) {
+        var maxHeight = window.getComputedStyle(this.el).maxHeight;
+        if (maxHeight === 'none') {
+          return;
+        }
+
+        var isExpanded = this.el.getAttribute('aria-expanded') === 'true';
+        var navLink = e.target;
+
+        if (isExpanded) {
+
+          // Close the nav if the clicked link is selected
+          if (navLink.getAttribute('aria-selected') === 'true') {
+            this.el.setAttribute('aria-expanded', 'false');
+            this.el.classList.remove('is-expanded');
+            navLink.setAttribute('aria-selected', 'false');
+            e.preventDefault();
+          }
+        } else {
+          
+
+
+          
+          
+          // Open the nav if it's closed
+          this.el.setAttribute('aria-expanded', 'true');
+          this.el.classList.add('is-expanded');
+          navLink.setAttribute('aria-selected', 'true');
+          e.preventDefault();
+        }
+      }
+    };
+
+    each('.collapsible-nav', function(nav) {
+      new CollapsibleNav(nav);
+    });
+
+    window.CollapsibleNav = CollapsibleNav;
+
+  });
+  
+})();
+
+
+// Hiding selections from the dropdowns within Forms. DEMO
+
+$(document).ready(function() {
+  var demoField = document.getElementById('demo_field');
+  if (HelpCenter.user.role == "anonymous" || HelpCenter.user.organizations[0].name == "Students") {
+    if (demoField !== null) {
+      demoField.style.display = 'none';
+    }
+    var optionsToRemove = ['incident_report_form'];
+    hideDropdownOptions(optionsToRemove);
+  }
+});
+
+function hideDropdownOptions(tagsToRemove) {
+  if (tagsToRemove) {
+    Array.prototype.forEach.call(document.querySelectorAll(".nesty-panel"), function(tagsElement) {
+      if (tagsElement !== null) {
+        var fieldDisableTagsObserver = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            if (mutation.type == 'childList') {
+              if (mutation.addedNodes.length >= 1) {
+                for (var i = 0; i < mutation.addedNodes.length; i++) {
+                  for (var j in tagsToRemove) {
+                    var tagElementToRemove = document.querySelector("li#" + tagsToRemove[j]);
+                    if (tagElementToRemove !== null) {
+                      tagElementToRemove.remove();
+                    }
+                  }          
+                }    
+              }
+            }
+          });
+        });
+        fieldDisableTagsObserver.observe(tagsElement, {childList: true});
+      }
+    });
+  } 
+}
+
+
+// Hiding selections from the dropdowns within Forms. Change Control Option Hidden from Students and Public
+
+$(document).ready(function() {
+  var demoField = document.getElementById('change_control_request');
+  if (HelpCenter.user.role == "anonymous" || HelpCenter.user.organizations[0].name == "Students") {
+    if (demoField !== null) {
+      demoField.style.display = 'none';
+    }
+    var optionsToRemove = ['change_control_request'];
+    hideDropdownOptions(optionsToRemove);
+  }
+});
+
+function hideDropdownOptions(tagsToRemove) {
+  if (tagsToRemove) {
+    Array.prototype.forEach.call(document.querySelectorAll(".nesty-panel"), function(tagsElement) {
+      if (tagsElement !== null) {
+        var fieldDisableTagsObserver = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            if (mutation.type == 'childList') {
+              if (mutation.addedNodes.length >= 1) {
+                for (var i = 0; i < mutation.addedNodes.length; i++) {
+                  for (var j in tagsToRemove) {
+                    var tagElementToRemove = document.querySelector("li#" + tagsToRemove[j]);
+                    if (tagElementToRemove !== null) {
+                      tagElementToRemove.remove();
+                    }
+                  }          
+                }    
+              }
+            }
+          });
+        });
+        fieldDisableTagsObserver.observe(tagsElement, {childList: true});
+      }
+    });
+  } 
+}
+
+
+
+
+
+
+
+// Hiding selections from the dropdowns within Forms. JML Option Hidden from Students and Public
+
+$(document).ready(function() {
+  var demoField = document.getElementById('jml_form_it');
+  if (HelpCenter.user.role == "anonymous" || HelpCenter.user.organizations[0].name == "Students") {
+    if (demoField !== null) {
+      demoField.style.display = 'none';
+    }
+    var optionsToRemove = ['jml_form_it'];
+    hideDropdownOptions(optionsToRemove);
+  }
+});
+
+function hideDropdownOptions(tagsToRemove) {
+  if (tagsToRemove) {
+    Array.prototype.forEach.call(document.querySelectorAll(".nesty-panel"), function(tagsElement) {
+      if (tagsElement !== null) {
+        var fieldDisableTagsObserver = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            if (mutation.type == 'childList') {
+              if (mutation.addedNodes.length >= 1) {
+                for (var i = 0; i < mutation.addedNodes.length; i++) {
+                  for (var j in tagsToRemove) {
+                    var tagElementToRemove = document.querySelector("li#" + tagsToRemove[j]);
+                    if (tagElementToRemove !== null) {
+                      tagElementToRemove.remove();
+                    }
+                  }          
+                }    
+              }
+            }
+          });
+        });
+        fieldDisableTagsObserver.observe(tagsElement, {childList: true});
+      }
+    });
+  } 
+}

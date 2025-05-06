@@ -38,7 +38,7 @@ generator = pipeline(
 )
 
 # === Load the Instruction-Tuned Dataset ===
-dataset = datasets.load_dataset("json", data_files="dataset.jsonl", split="train")
+dataset = datasets.load_dataset("json", data_files="final_dataset.jsonl", split="train")
 qa_dict = {item["input"]: item["output"] for item in dataset}
 
 # === Load Sentence Transformer for Semantic Matching ===
@@ -116,14 +116,13 @@ def wrap_with_friendly_tone(answer):
     )
 
     return f"<p>{opening}</p>{clean_answer.strip()}<p>{closing}</p>"
-    return clean_answer
 
 def get_small_talk_responses():
     """
     Return predefined responses for small talk interactions.
     """
     return {
-        "hi": "Hey there Emma!",
+        "hi": "Hey there!",
         "hello": "Hello! How can I help you today?",
         "how are you": "I'm doing great, thanks! How can I help you today?",
         "how are you doing": "I'm doing well, thank you! Let me know if there's anything I can help with.",
@@ -194,5 +193,5 @@ def static_from_saved_site(filename):
 
 # === Run Flask App ===
 if __name__ == '__main__':
-    print("Charlie is emma running at http://localhost:5000")
+    print("Charlie is running at http://localhost:5000")
     app.run(host="0.0.0.0", port=5000, debug=True)  # IMPORTANT: debug=False for production
